@@ -73,29 +73,6 @@ chest-xray-classification/
 
 ---
 
-## Models Used
-
-All three models were pre-trained on ImageNet (1.2 million images, 1000 classes).
-We replace their original output head with our own 3-class classifier.
-
-| Model | Key Idea | Size |
-|---|---|---|
-| VGG16 | Classic stacked conv layers, simple and reliable | Large |
-| ResNet50 | Skip connections prevent vanishing gradients, very deep | Medium |
-| MobileNetV2 | Lightweight depthwise convolutions, fast inference | Small |
-
-### Two-Phase Training Strategy
-
-**Phase 1 — Freeze base, train top layers only**
-The pre-trained base is frozen. Only our new classification layers learn.
-Learning rate: `1e-3`. Fast and safe.
-
-**Phase 2 — Fine-tune last 20 base layers**
-The last 20 layers of the base model are unfrozen and fine-tuned
-alongside our top layers using a very small learning rate (`1e-5`).
-This lets the model adapt its deeper features to X-ray images.
-
----
 
 ## Requirements
 
@@ -165,10 +142,6 @@ No need to re-run training.
 | 6 — Evaluate | Accuracy, Precision, Recall, F1-Score, Confusion Matrix | 6 |
 | 7 — Predictions | Sample correct and incorrect predictions visualized | 5 |
 
-### GradCAM_Fixed.ipynb
-
-Loads saved models and generates Grad-CAM heatmaps showing where each model
-focuses its attention when classifying an X-ray.
 
 ---
 
